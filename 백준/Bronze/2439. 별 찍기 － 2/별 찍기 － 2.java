@@ -6,10 +6,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        String str ="";
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < N; i++) {
-            str += "*";
-            System.out.println(String.format("%"+N+"s",str));
+            str.append("*");
+            System.out.println(String.format("%" + N + "s", str));
         }
     }
 }
