@@ -7,16 +7,19 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int X = Integer.parseInt(st.nextToken());
+
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer Aitem = new StringTokenizer(br.readLine());
 
-        int[] A = new int[N];
+        StringBuilder sb = new StringBuilder();
+
         for (int i = 0; i < N; i++) {
-            A[i] = Integer.parseInt(Aitem.nextToken());
-            if (A[i] < X){
-                bw.write(A[i] + " ");
+            int num = Integer.parseInt(Aitem.nextToken());
+            if (num < X) {
+                sb.append(num).append(" ");
             }
         }
+        bw.write(sb.toString().trim());
         bw.flush();
     }
 }
