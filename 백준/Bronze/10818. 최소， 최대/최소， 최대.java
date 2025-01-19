@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -13,9 +12,17 @@ public class Main {
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
+        int max = arr[0];
+        int min = arr[0];
 
-        int max = Arrays.stream(arr).max().getAsInt();
-        int min = Arrays.stream(arr).min().getAsInt();
+        for (int i = 1; i < N; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
 
         System.out.println(min +" "+max);
     }
