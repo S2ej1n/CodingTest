@@ -6,10 +6,7 @@ public class Main {
         String word = br.readLine();
         StringBuilder sb = new StringBuilder(word);
 
-        if (word.equals(sb.reverse().toString())){
-            System.out.println(1);
-        } else {
-            System.out.println(0);
-        }
+        int r = word.equals(sb.reverse().toString())? 1 : 0;
+        System.out.println(r);
     }
 }
