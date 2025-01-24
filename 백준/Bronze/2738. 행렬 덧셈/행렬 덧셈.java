@@ -26,9 +26,8 @@ public class Main {
         }
 
         for (int i = 0; i < N; i++) {
-            int[] inArray = result[i];
             for (int j = 0; j < M; j++) {
-                System.out.print(inArray[j] + " ");
+                System.out.print(result[i][j] + " ");
             }
             System.out.println();
         }
