@@ -7,20 +7,22 @@ public class Main {
 
         int[][] matrix = new int[9][9];
         int max = Integer.MIN_VALUE;
-        String index = "";
+        int row = 0;
+        int col = 0;
 
         for (int i = 0; i < 9; i ++){
             StringTokenizer st = new StringTokenizer(br.readLine());
-            
+
             for (int j = 0; j < 9; j++) {
                 matrix[i][j] = Integer.parseInt(st.nextToken());
                 if(matrix[i][j] > max){
                     max = matrix[i][j];
-                    index = (i+1) + " " + (j+1);
+                    row = i;
+                    col = j;
                 }
             }
         }
         System.out.println(max);
-        System.out.println(index);
+        System.out.println((row+1) + " " + (col+1));
     }
 }
