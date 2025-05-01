@@ -6,12 +6,12 @@ dict={}
 dict2={}
 
 for i in range(N):
-    poket = input()
+    poket = sys.stdin.readline().strip()
     dict[i+1] = poket
     dict2[poket]= i+1
 
 for j in range(M):
-    q = input()
+    q = input().strip()
     if q.isdigit():
         print(dict[int(q)])
     else:
