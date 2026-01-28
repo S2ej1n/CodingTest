@@ -1,0 +1,12 @@
+function solution(a, d, included) {
+    var answer = 0;
+    const n = included.length
+
+    for (var i=0; i<n; i++){
+        if (included[i] == true){
+            answer += (a+(d*i))
+        }
+    }
+    
+    return answer;
+}
