@@ -1,46 +1,33 @@
-from collections import deque
+import sys
+input = sys.stdin.readline
 
 N = int(input())
-mapp = [list(map(int, input().strip())) for _ in range(N)]
+map = [list(map(int, input().strip())) for _ in range(N)]
+chk = [[False] * N for _ in range(N)]
+result = []
+dy = [0,1,0,-1]
+dx = [1,0,-1,0]
 
-visited = [[False]*N for _ in range(N)]
+def dfs(y, x):
+    global each
+    each += 1
+    for k in range(4):
+        ny = y + dy[k]
+        nx = x + dx[k]
+        if 0<=ny<N and 0<=nx<N:
+            if map[ny][nx] == 1 and chk[ny][nx] == False:
+                chk[ny][nx] = True
+                dfs(ny, nx)
 
-# 상하좌우
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-
-def bfs(x, y):
-    queue = deque()
-    queue.append((x, y))
-    visited[x][y] = True
-    kan = 1
-
-    while queue:
-        #현재 좌표
-        cx, cy = queue.popleft()
-
-        for i in range(4):
-            nx = cx + dx[i]
-            ny = cy + dy[i]
-
-            if 0 <= nx < N and 0 <= ny < N:
-                if mapp[nx][ny] == 1 and visited[nx][ny] == False:
-                    visited[nx][ny] = True
-                    queue.append((nx, ny))
-                    kan += 1
-    return kan
-
-def main():
-    count = 0
-    house = []
+for j in range(N):
     for i in range(N):
-        for j in range(N):
-            if mapp[i][j] == 1 and visited[i][j] == False:
-                house.append(bfs(i, j))
-                count += 1
-    print(count)
-    house.sort()
-    for house in house:
-        print(house)
+        if map[j][i] == 1 and chk[j][i] == False:
+            chk[j][i] = True
+            each = 0
+            dfs(j,i)
+            result.append(each)
 
-main()
+result.sort()
+print(len(result))
+for i in result:
+    print(i)
