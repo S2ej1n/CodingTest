@@ -1,79 +1,34 @@
-'''
-- 도형을 만들고
-- 각 도형이 배치된곳에 False 표시
-- 각 도형들이 가지는 값 더해보기
-- 최대인거 출력하기
-'''
 import sys
 input = sys.stdin.readline
-# (y,x)
-poly = [
-    # ㅡ (2)
-    [(0,0),(0,1),(0,2),(0,3)],
-    [(0,0),(1,0),(2,0),(3,0)],
-
-    # ㅁ (1)
-    [(0,0),(0,1),(1,0),(1,1)],
-
-# ㄴ (8)
-    [(0,0),(1,0),(2,0),(2,1)],
-    [(0,1),(1,1),(2,1),(2,0)],
-    [(0,0),(0,1),(1,0),(2,0)],
-    [(0,0),(0,1),(1,1),(2,1)],
-    [(0,0),(0,1),(0,2),(1,0)],
-    [(0,0),(0,1),(0,2),(1,2)],
-    [(1,0),(1,1),(1,2),(0,0)], 
-    [(1,0),(1,1),(1,2),(0,2)],
-
-    # S / Z (4)
-    [(0,0),(0,1),(1,1),(1,2)],
-    [(0,1),(1,0),(1,1),(2,0)],
-    [(0,1),(0,2),(1,0),(1,1)],
-    [(0,0),(1,0),(1,1),(2,1)],
-
-    # ㅗ (4)
-    [(0,0),(0,1),(0,2),(1,1)],
-    [(0,1),(1,0),(1,1),(2,1)],
-    [(1,0),(1,1),(1,2),(0,1)],
-    [(0,0),(1,0),(1,1),(2,0)]
-]
 
 N, M = map(int, input().split())
 board = [(list(map(int,input().split()))) for _ in range(N)]
 
-# 현재 도형이 뭔지, 현재 합
-def dfs(i, x, y, cost):
-    for j in poly[i]:
-        nx = x + j[0]
-        ny = y + j[1]
+visited = [[0] * M for _ in range (N)]
 
-        # 구간 확인
-        if not ((0<=nx<N) and (0<=ny<M)):
-            return 0
-        # 구간이다?
-        else:
-            cost += board[nx][ny]
+dx = [-1,1,0,0]
+dy = [0,0,-1,1]
 
-    return cost
+# 현재 선택한 칸 개수, 현재까지의 합, 현재까지 선택한 노드
+def dfs(n, temp, lst) :
+    global ans
 
-maxv = 0
+    if n == 4:
+        ans = max(temp, ans)
+        return
+    
+    for cx, cy in lst :
+        for i in range(4):
+            nx, ny = cx + dx[i], cy + dy[i]
+            if 0 <= nx < N and 0<= ny < M and visited[nx][ny] == 0 :
+                visited[nx][ny] = 1
+                dfs(n+1, temp + board[nx][ny], lst + [(nx, ny)])
+                visited[nx][ny] = 0
+ans = 0
 
-# 5개의 도형 하나씩 확인하기
-for i in range(19):
-    # 해당 도형의 최대
-    res = 0
+for i in range(N):
+    for j in range(M):
+        visited[i][j] = 1
+        dfs(1, board[i][j], [(i,j)])
 
-    # 시작점 하나 찍고
-    for x in range(N):
-        for y in range(M):
-            # 도형이 보드 안에 있는지 확인
-            if ((0<=x<N) and (0<=y<M)):
-                # 격자안에 있는거 모두 더해
-                val = dfs(i,x,y,0)
-                res = max(res,val)
-
-    # 가장 큰거 리턴
-    maxv = max(maxv,res)
-
-# 큰값중에 가장 큰 값
-print(maxv)
+print(ans)
