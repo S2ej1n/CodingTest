@@ -11,7 +11,7 @@ n = n-1 n-2
 '''
 ar = [0,1,2]
 
-for i in range(3, n+1):
+for i in range(3, 2*n+1):
     ar.append(ar[i-2] + ar[i-1])
 
 print(ar[n]%10007)
