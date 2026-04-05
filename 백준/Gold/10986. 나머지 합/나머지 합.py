@@ -3,16 +3,22 @@ input = sys.stdin.readline
 
 N,M= map(int, input().split())
 num = list(map(int, input().split()))
-sum = 0
-numRemainder = [0] * M
 
-for i in range(N):
-  sum += num[i]
-  numRemainder[sum % M] += 1
+prefix_sum = 0
 
-result = numRemainder[0]
+remainder_count = {}
+remainder_count[0] = 1   # 초기 상태
 
-for i in numRemainder:
-  result += i*(i-1)//2 # 조합
-  
+result = 0
+
+for x in num:
+    prefix_sum += x
+    r = prefix_sum % M
+
+    if r in remainder_count:
+        result += remainder_count[r]
+        remainder_count[r] += 1
+    else:
+        remainder_count[r] = 1
+
 print(result)
