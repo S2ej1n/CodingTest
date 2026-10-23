@@ -26,6 +26,7 @@ function solution(tickets) {
             return;
         }
         
+        // 항공권이 없는 경우
         if (!cont[node]) return;
         
         for(let n = 0; n < cont[node].length ; n++){ // 다음 노드
